@@ -1,0 +1,133 @@
+name: CI
+on: [push, pull_request]
+defaults:
+  run:
+    working-directory: ./packages/toolkit
+
+jobs:
+  changes:
+    name: Check for changes
+    runs-on: ubuntu-latest
+    outputs:
+      toolkit: ${{ steps.filter.outputs.toolkit }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            toolkit:
+              - 'packages/toolkit/**'
+
+  build:
+    needs: changes
+    if: ${{ needs.changes.outputs.toolkit == 'true' }}
+
+    name: Lint, Test, Build & Pack on Node ${{ matrix.node }}
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ['16.x']
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Use node ${{ matrix.node }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'yarn'
+
+      - name: Install deps
+        run: yarn install
+
+      - name: Pack
+        run: yarn pack
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: package
+          path: packages/toolkit/package.tgz
+
+  test-dist:
+    name: Test against dist
+    needs: [build]
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['16.x']
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Use node ${{ matrix.node }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'yarn'
+
+      - name: Install deps
+        run: yarn install
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: package
+          path: packages/toolkit
+
+      - run: ls -lah
+
+      - name: Install build artifact
+        run: yarn workspace @reduxjs/toolkit add $(pwd)/package.tgz
+
+      - run: sed -i -e /@remap-prod-remove-line/d ./tsconfig.base.json ./jest.config.js ./src/tests/*.* ./src/query/tests/*.*
+
+      - name: Run tests, against dist
+        run: yarn test
+
+  test-types:
+    name: Test Types with TypeScript ${{ matrix.ts }}
+
+    needs: [build]
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['16.x']
+        ts: ['4.1', '4.2', '4.3', '4.4', '4.5', '4.6', '4.7']
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Use node ${{ matrix.node }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'yarn'
+
+      - name: Install deps
+        run: yarn install
+
+      - name: Install TypeScript ${{ matrix.ts }}
+        run: yarn add typescript@${{ matrix.ts }}
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: package
+          path: packages/toolkit
+
+      - name: Install build artifact
+        run: yarn add ./package.tgz
+
+      - run: sed -i -e /@remap-prod-remove-line/d ./tsconfig.base.json ./jest.config.js ./src/tests/*.* ./src/query/tests/*.*
+
+      - name: "@ts-ignore stuff that didn't exist pre-4.1 in the tests"
+        if: ${{ matrix.ts < 4.1 }}
+        run: sed -i -e 's/@pre41-ts-ignore/@ts-ignore/' -e  '/pre41-remove-start/,/pre41-remove-end/d' ./src/tests/*.* ./src/query/tests/*.ts*
+
+      - name: Test types
+        run: |
+          yarn tsc --version
+          yarn type-tests
