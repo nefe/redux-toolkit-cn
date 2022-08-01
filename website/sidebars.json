@@ -2,13 +2,13 @@
   "docs": [
     {
       "type": "category",
-      "label": "Introduction",
+      "label": "入门",
       "collapsed": false,
       "items": ["introduction/getting-started"]
     },
     {
       "type": "category",
-      "label": "Tutorials",
+      "label": "教程",
       "collapsed": false,
       "items": [
         "tutorials/tutorials-overview",
@@ -19,7 +19,7 @@
     },
     {
       "type": "category",
-      "label": "Using Redux Toolkit",
+      "label": "使用指南",
       "collapsed": false,
       "items": [
         "usage/usage-guide",
@@ -29,12 +29,12 @@
     },
     {
       "type": "category",
-      "label": "API Reference",
+      "label": "API 文档",
       "collapsed": true,
       "items": [
         {
           "type": "category",
-          "label": "Store Setup",
+          "label": "配置 Store",
           "collapsed": false,
           "items": [
             "api/configureStore",
@@ -46,7 +46,7 @@
         },
         {
           "type": "category",
-          "label": "Reducers and Actions",
+          "label": "Reducers 和 Actions",
           "collapsed": false,
           "items": [
             "api/createReducer",
@@ -58,7 +58,7 @@
         },
         {
           "type": "category",
-          "label": "Other",
+          "label": "其他",
           "collapsed": false,
           "items": [
             "api/createSelector",
@@ -79,7 +79,7 @@
         "rtk-query/usage-with-typescript",
         {
           "type": "category",
-          "label": "Using RTK Query",
+          "label": "使用 RTK Query",
           "collapsed": true,
           "items": [
             "rtk-query/usage/queries",
@@ -105,7 +105,7 @@
         },
         {
           "type": "category",
-          "label": "API Reference",
+          "label": "API 文档",
           "collapsed": true,
           "items": [
             "rtk-query/api/createApi",

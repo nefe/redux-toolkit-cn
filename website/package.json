@@ -6,7 +6,7 @@
     "netlify-build": "yarn install && yarn build",
     "swizzle": "docusaurus swizzle",
     "publish-gh-pages": "docusaurus deploy",
-    "deploy": "docusaurus deploy"
+    "deploy": "cross-env USE_SSH=true yarn docusaurus deploy"
   },
   "dependencies": {
     "@docusaurus/core": "2.0.0-beta.21",
@@ -31,6 +31,7 @@
     ]
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "netlify-plugin-cache": "^1.0.3"
   }
 }
