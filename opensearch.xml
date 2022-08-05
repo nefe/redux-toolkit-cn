@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/"
                        xmlns:moz="http://www.mozilla.org/2006/browser/search/">
-  <ShortName>React Redux 中文文档</ShortName>
-  <Description>Search React Redux 中文文档</Description>
+  <ShortName>Redux Toolkit 中文文档</ShortName>
+  <Description>Search Redux Toolkit 中文文档</Description>
   <InputEncoding>UTF-8</InputEncoding>
-  <Image width="16" height="16" type="image/x-icon">https://cn.react-redux.js.org/img/favicon/favicon.ico</Image>
-  <Url type="text/html" method="get" template="https://cn.react-redux.js.org/search?q={searchTerms}"/>
-  <Url type="application/opensearchdescription+xml" rel="self" template="https://cn.react-redux.js.org/opensearch.xml" />
-  <moz:SearchForm>https://cn.react-redux.js.org/</moz:SearchForm>
+  <Image width="16" height="16" type="image/x-icon">https://cn.redux-toolkit.js.org/img/favicon/favicon.ico</Image>
+  <Url type="text/html" method="get" template="https://cn.redux-toolkit.js.org/search?q={searchTerms}"/>
+  <Url type="application/opensearchdescription+xml" rel="self" template="https://cn.redux-toolkit.js.org/opensearch.xml" />
+  <moz:SearchForm>https://cn.redux-toolkit.js.org/</moz:SearchForm>
 </OpenSearchDescription>
