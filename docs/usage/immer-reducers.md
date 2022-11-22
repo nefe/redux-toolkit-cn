@@ -484,10 +484,6 @@ const itemsSlice = createSlice({
 
 Immer 有两个主要优点。 首先，**Immer 极大地简化了不可变的更新逻辑。** [适当的不可变更新非常冗长](https://redux.js.org/usage/structuring-reducers/immutable-update-patterns#updating-nested-objects)。 那些冗长的操作很难从整体上阅读，也混淆了更新语句的实际意图。 Immer 消除了所有嵌套的展开和数组切片。 不仅代码更短、更易于阅读，而且实际更新应该发生的内容也更加清晰。
 
-
-Second, [writing immutable updates correctly is _hard_](), and it is really easy to make mistakes (like forgetting to copy a level of nesting in a set of object spreads, copying a top-level array and not the item to be updated inside the array, or forgetting that `array.sort()` mutates the array). This is part of why [accidental mutations has always been the most common cause of Redux bugs](https://redux.js.org/faq/react-redux#why-isnt-my-component-re-rendering-or-my-mapstatetoprops-running). **Immer effectively _eliminates_ accidental mutations**. Not only are there no more spread operations that can be mis-written, but Immer freezes state automatically as well. This causes errors to be thrown if you do accidentally mutate, even outside of a reducer. **Eliminating the #1 cause of Redux bugs is a _huge_ improvement.**
-
-
 其次，[正确编写不可变更新很难](https://redux.js.org/usage/structuring-reducers/immutable-update-patterns)，而且很容易出错（比如忘记复制一组对象传播中的嵌套级别，复制顶级数组而不是数组中要更新的项目， 或者忘记` array.sort() `改变数组）。 [这就是为什么意外改变一直是 Redux 错误的最常见原因的部分原因](https://redux.js.org/faq/react-redux#why-isnt-my-component-re-rendering-or-my-mapstatetoprops-running)。**Immer 有效地 _消除_ 了意外改变**。 不仅没有更多可能被误写的传播操作，而且 Immer 还会自动冻结状态。 如果您不小心发生改变，即使在 reducer 之外，也会引发错误。 **消除 Redux 错误的第一大原因是一个 _巨大_ 的改进。**
 
 此外，RTK 查询还使用 Immer 的补丁功能来启用[优化更新和手动缓存更新](../rtk-query/usage/manual-cache-updates.mdx)
@@ -497,7 +493,7 @@ Second, [writing immutable updates correctly is _hard_](), and it is really easy
 
 与任何工具一样，使用 Immer 确实需要权衡取舍，并且用户对使用它表示了很多担忧。
 
-Immer 确实增加了整个应用程序包的大小。 大约 8K min，3.3K min+gz（参考：[Immer 文档](https://immerjs.github.io/immer/installation)，[Bundle.js.org 分析]((https://bundle.js.org/?q=immer&treeshake=[{default+as+produce+}]))）。 但是，该库包大小开始通过缩减应用程序中的 reducer 逻辑量来收回成本。 此外，更可读的代码和消除突变错误的好处是值得的。
+Immer 确实增加了整个应用程序包的大小。 大约 8K min，3.3K min+gz 参考：[Immer 文档](https://immerjs.github.io/immer/installation)，[Bundle.js.org 分析](https://bundle.js.org/?q=immer&treeshake=[{default+as+produce+}]) 。 但是，该库包大小开始通过缩减应用程序中的 reducer 逻辑量来收回成本。 此外，更可读的代码和消除突变错误的好处是值得的。
 
 Immer 还增加了一些运行时性能开销。 但是，[根据 Immer“性能”文档页面，开销在实践中没有意义](https://immerjs.github.io/immer/performance/)。 此外，无论如何，[reducer 几乎从来都不是 Redux 应用程序中的性能瓶颈](https://github.com/reduxjs/redux-toolkit/issues/242#issuecomment-583296008)。 相反，更新 UI 的成本要重要得多。
 
