@@ -7,32 +7,31 @@ hide_title: true
 
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css'
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 &nbsp;
 
-# Getting Started with Redux Toolkit
+# 快速入门Redux Toolkit
 
-## Purpose
+## 目的
+**Redux Toolkit**包旨在成为编写Redux逻辑的标准方式。它最初是为了帮助解决[Redux](https://redux.js.org)的三个常见的问题。
 
-The **Redux Toolkit** package is intended to be the standard way to write [Redux](https://redux.js.org) logic. It was originally created to help address three common concerns about Redux:
+- "配置Redux store实在是太复杂啦"
+- "我得添加很多其他的包才能开始用Redux做些有用的事情"
+- "Redux的样板代码太多了"
 
-- "Configuring a Redux store is too complicated"
-- "I have to add a lot of packages to get Redux to do anything useful"
-- "Redux requires too much boilerplate code"
+我们无法解决每一个问题，但本着[`create-react-app`](https://github.com/facebook/create-react-app)的精神，我们可以尝试提供一些工具来抽象出设置过程，处理最常见的用例，同时也包括一些有用的工具，让用户简化应用程序代码。
 
-We can't solve every use case, but in the spirit of [`create-react-app`](https://github.com/facebook/create-react-app), we can try to provide some tools that abstract over the setup process and handle the most common use cases, as well as include some useful utilities that will let the user simplify their application code.
+Redux Toolkit还包括一个强大的数据获取和缓存功能，我们称之为["RTK Query"](#rtk-query)。它作为一组单独的入口点包含在软件包中。它是可选的，但可以消除自己手写数据获取逻辑的必要。
 
-Redux Toolkit also includes a powerful data fetching and caching capability that we've dubbed ["RTK Query"](#rtk-query). It's included in the package as a separate set of entry points. It's optional, but can eliminate the need to hand-write data fetching logic yourself.
+**这些工具对所有的Redux用户都应该是有益的**。无论你是正在创建第一个项目的新手还是想要简化现有应用的老手, **Redux Toolkit** 都能让你的Redux代码变得更好！
 
-**These tools should be beneficial to all Redux users**. Whether you're a brand new Redux user setting up your
-first project, or an experienced user who wants to simplify an existing application, **Redux Toolkit** can help
-you make your Redux code better.
+## 安装
 
-## Installation
+### 通过Create React App
 
-### Using Create React App
-
-The recommended way to start new apps with React and Redux is by using the [official Redux+JS template](https://github.com/reduxjs/cra-template-redux) or [Redux+TS template](https://github.com/reduxjs/cra-template-redux-typescript) for [Create React App](https://github.com/facebook/create-react-app), which takes advantage of **[Redux Toolkit](https://redux-toolkit.js.org/)** and React Redux's integration with React components.
+使用React和Redux开始一个新应用程序的推荐方法是使用[官方Redux+JS模板](https://github.com/reduxjs/cra-template-redux)或[Reux+TS模板](https://github.com/reduxjs/cra-template-redux-typescript)[Create React App](https://github.com/facebook/create-react-app)，它利用了**[Reux Toolkit](https://redux-toolkit.js.org/)**以及React Redux与React组件的整合。
 
 ```bash
 # Redux + Plain JS template
@@ -42,44 +41,56 @@ npx create-react-app my-app --template redux
 npx create-react-app my-app --template redux-typescript
 ```
 
-### An Existing App
+### 现有应用程序
 
-Redux Toolkit is available as a package on NPM for use with a module bundler or in a Node application:
+Redux工具包作为NPM上的一个包，可与模块打包器或在Node应用程序中使用：
+<Tabs>
+  <TabItem value="npm" label="npm" default>
 
 ```bash
-# NPM
 npm install @reduxjs/toolkit
 ```
 
-or
+如果需要React绑定:
 
 ```bash
-# Yarn
+npm install react-redux
+```
+
+  </TabItem>
+  <TabItem value="yarn" label="yarn" default>
+
+```bash
 yarn add @reduxjs/toolkit
 ```
 
-It is also available as a precompiled UMD package that defines a `window.RTK` global variable.
-The UMD package can be used as a [`<script>` tag](https://unpkg.com/@reduxjs/toolkit/dist/redux-toolkit.umd.js) directly.
+如果需要React绑定:
 
-## What's Included
+```bash
+yarn add react-redux
+```
 
-Redux Toolkit includes these APIs:
+  </TabItem>
+</Tabs>
 
-- [`configureStore()`](../api/configureStore.mdx): wraps `createStore` to provide simplified configuration options and good defaults. It can automatically combine your slice reducers, adds whatever Redux middleware you supply, includes `redux-thunk` by default, and enables use of the Redux DevTools Extension.
-- [`createReducer()`](../api/createReducer.mdx): that lets you supply a lookup table of action types to case reducer functions, rather than writing switch statements. In addition, it automatically uses the [`immer` library](https://github.com/immerjs/immer) to let you write simpler immutable updates with normal mutative code, like `state.todos[3].completed = true`.
-- [`createAction()`](../api/createAction.mdx): generates an action creator function for the given action type string. The function itself has `toString()` defined, so that it can be used in place of the type constant.
-- [`createSlice()`](../api/createSlice.mdx): accepts an object of reducer functions, a slice name, and an initial state value, and automatically generates a slice reducer with corresponding action creators and action types.
-- [`createAsyncThunk`](../api/createAsyncThunk.mdx): accepts an action type string and a function that returns a promise, and generates a thunk that dispatches `pending/fulfilled/rejected` action types based on that promise
-- [`createEntityAdapter`](../api/createEntityAdapter.mdx): generates a set of reusable reducers and selectors to manage normalized data in the store
-- The [`createSelector` utility](../api/createSelector.mdx) from the [Reselect](https://github.com/reduxjs/reselect) library, re-exported for ease of use.
+它也可以作为定义`window.RTK`全局变量的预编译UMD包使用。UMD包可以直接作为[`<script>` tag](https://unpkg.com/@reduxjs/toolkit/dist/redux-toolkit.umd.js)标签来使用。
+## 包含了什么？
 
+Redux Toolkit包含了这些API:
+
+- [`configureStore()`](../api/configureStore.mdx): 通过封装`createStore`，以提供简化的配置选项和良好的默认值。它可以自动组合你的slice reducers，添加你提供的任何Redux中间件，默认包含了`redux-thunk`，并支持Redux DevTools扩展。 
+- [`createReducer()`](../api/createReducer.mdx): 允许你为reducer函数提供一个action type的查询表，而不是写switch语句。此外，它自动使用[`immer`库](https://github.com/immerjs/immer)，让你用正常的可变代码编写更简单的不可变更新，如`state.todos[3].completed = true`。
+- [`createAction()`](../api/createAction.mdx): 为给定的action type字符串生成一个cation创建器函数。该函数本身已经定义了`toString()`，所以它可以用来代替type常量。
+- [`createSlice()`](../api/createSlice.mdx): 接受一个reducer函数对象、一个slice名称和一个初始state值，并自动生成一个带有相应action创建者和action type的slice reducer。
+- [`createAsyncThunk`](../api/createAsyncThunk.mdx): 接受一个action type字符串和一个返回promise的函数，并生成一个thunk，根据该promise分派`pending/fulfilled/rejected`的action type值。
+- [`createEntityAdapter`](../api/createEntityAdapter.mdx): 生成一组可重用的reducers和selectors，以管理store中的规范化数据
+- [Reselect](https://github.com/reduxjs/reselect)中的[`createSelector` 工具](../api/createSelector.mdx)，为了方便使用而重新导出
 ## RTK Query
+[**RTK Query**](.../rtk-query/overview.md)是作为`@reduxjs/toolkit`包内的一个可选的插件提供的。它的目的是解决数据获取和缓存的用例，提供一个紧凑但强大的工具集，为你的应用程序定义一个API接口层。旨在简化网络应用中加载数据的常见情况，使你无需自己手写数据获取和缓存逻辑。
 
-[**RTK Query**](../rtk-query/overview.md) is provided as an optional addon within the `@reduxjs/toolkit` package. It is purpose-built to solve the use case of data fetching and caching, supplying a compact, but powerful toolset to define an API interface layer for your app. It is intended to simplify common cases for loading data in a web application, eliminating the need to hand-write data fetching & caching logic yourself.
+RTK Query是建立在Redux Tookit核心之上实现的，内部使用[Redux](https://redux.js.org/)作为其架构。尽管使用RTK Query不需要Redux和RTK的知识，但你应该探索它们提供的所有额外的全局store管理功能，以及安装[Redux DevTools浏览器扩展](https://github.com/reduxjs/redux-devtools)，它与RTK Query完美配合，可以遍历和回放你的请求和缓存行为的时间线。
 
-RTK Query is built on top of the Redux Toolkit core for its implementation, using [Redux](https://redux.js.org/) internally for its architecture. Although knowledge of Redux and RTK are not required to use RTK Query, you should explore all of the additional global store management capabilities they provide, as well as installing the [Redux DevTools browser extension](https://github.com/reduxjs/redux-devtools), which works flawlessly with RTK Query to traverse and replay a timeline of your request & cache behavior.
-
-RTK Query is included within the installation of the core Redux Toolkit package. It is available via either of the two entry points below:
+RTK Query包含在Redux Toolkit核心软件包的安装中。它可以通过下面两个入口点中的任何一个获得：
 
 ```ts no-transpile
 import { createApi } from '@reduxjs/toolkit/query'
@@ -89,42 +100,42 @@ import { createApi } from '@reduxjs/toolkit/query'
 import { createApi } from '@reduxjs/toolkit/query/react'
 ```
 
-### What's included
+### RTK Query又包含了什么？
 
-RTK Query includes these APIs:
+RTK Query包含这些API:
 
-- [`createApi()`](../rtk-query/api/createApi.mdx): The core of RTK Query's functionality. It allows you to define a set of endpoints describe how to retrieve data from a series of endpoints, including configuration of how to fetch and transform that data. In most cases, you should use this once per app, with "one API slice per base URL" as a rule of thumb.
-- [`fetchBaseQuery()`](../rtk-query/api/fetchBaseQuery.mdx): A small wrapper around [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) that aims to simplify requests. Intended as the recommended `baseQuery` to be used in `createApi` for the majority of users.
-- [`<ApiProvider />`](../rtk-query/api/ApiProvider.mdx): Can be used as a `Provider` if you **do not already have a Redux store**.
-- [`setupListeners()`](../rtk-query/api/setupListeners.mdx): A utility used to enable `refetchOnMount` and `refetchOnReconnect` behaviors.
+- [`createApi()`](../rtk-query/api/createApi.mdx): RTK Query的核心功能。它允许你定义一组端点，描述如何从一系列的端点中获取数据，包括配置如何获取和转换这些数据。在大多数情况下，你应该在每个应用中使用一次，以 "每个基本URL一个API slice"作为经验法则。
+- [`fetchBaseQuery()`](../rtk-query/api/fetchBaseQuery.mdx): 一个围绕[`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)的小型封装器，旨在简化请求。旨在作为推荐的`baseQuery`，供大多数用户在`createApi`中使用。
+- [`<ApiProvider />`](../rtk-query/api/ApiProvider.mdx): **如果你还没有任何Redux store**，你可以将它作为`Provider`。
+- [`setupListeners()`](../rtk-query/api/setupListeners.mdx): 一个用于启用 `refetchOnMount`和`refetchOnReconnect`行为的工具。
 
-See the [**RTK Query Overview**](../rtk-query/overview.md) page for more details on what RTK Query is, what problems it solves, and how to use it.
+有关RTK查询是什么、它解决了什么问题以及如何使用它的详细信息，请参阅[**RTK Query Overview**](../rtk-query/overview.md)。
 
-## Learn Redux
+## 学习Redux
 
-We have a variety of resources available to help you learn Redux.
+我们有各种资源可以帮助你学习Redux。
 
-### Redux Essentials Tutorial
+### Redux基本知识
 
-The [**Redux Essentials tutorial**](https://redux.js.org/tutorials/essentials/part-1-overview-concepts) is a "top-down" tutorial that teaches "how to use Redux the right way", using our latest recommended APIs and best practices. We recommend starting there.
+[**Redux基础教程**](https://redux.js.org/tutorials/essentials/part-1-overview-concepts)是一个"自顶向下"的教程，教你"如何以正确的方式使用Redux"，以及使用我们推荐的最新API和最佳实践。我们建议从那里开始。
 
 ### Redux Fundamentals Tutorial
 
-The [**Redux Fundamentals tutorial**](https://redux.js.org/tutorials/fundamentals/part-1-overview) is a "bottom-up" tutorial that teaches "how Redux works" from first principles and without any abstractions, and why standard Redux usage patterns exist.
+[**Redux深入浅出**](https://redux.js.org/tutorials/fundamentals/part-1-overview)是一个“自底向上”的教程，它从基本原理出发，在没有任何抽象的情况下教授“Redux如何工作”，以及为什么存在标准的Redux使用模式。
 
-### Learn Modern Redux Livestream
+### Redux网络课程--Learn Modern Redux
 
-Redux maintainer Mark Erikson appeared on the "Learn with Jason" show to explain how we recommend using Redux today. The show includes a live-coded example app that shows how to use Redux Toolkit and React-Redux hooks with Typescript, as well as the new RTK Query data fetching APIs.
+Redux维护人员马克·埃里克森（Mark Erikson）出现在“Learn with Jason ”节目中，解释了我们今天推荐使用Redux的方法。该节目包括一个实时编码的示例应用，展示了如何使用Redux Toolkit和React Redux挂钩以及Typescript，还有新的RTK Query的数据获取API。
 
-See [the "Learn Modern Redux" show notes page](https://www.learnwithjason.dev/let-s-learn-modern-redux) for a transcript and links to the example app source.
+请参阅["学习现代Redux "节目说明页面](https://www.learnwithjason.dev/let-s-learn-modern-redux)，以获取文字记录和示例应用程序源的链接。
 
 <LiteYouTubeEmbed 
     id="9zySeP5vH9c"
     title="Learn Modern Redux - Redux Toolkit, React-Redux Hooks, and RTK Query"
 />
 
-## Help and Discussion
+## 帮助和讨论
 
-The **[#redux channel](https://discord.gg/0ZcbPKXt5bZ6au5t)** of the **[Reactiflux Discord community](http://www.reactiflux.com)** is our official resource for all questions related to learning and using Redux. Reactiflux is a great place to hang out, ask questions, and learn - come join us!
+**[Reactiflux Discord社区](http://www.reactiflux.com)**中的**[#redux频道](https://discord.gg/0ZcbPKXt5bZ6au5t)**是我们学习和使用Redux相关问题的官方资源。Reactiflux是一个闲逛、提问和学习的好地方--来加入我们吧!
 
-You can also ask questions on [Stack Overflow](https://stackoverflow.com) using the **[#redux tag](https://stackoverflow.com/questions/tagged/redux)**.
+你也可以在[Stack Overflow](https://stackoverflow.com)中给自己的问题带上**[#redux tag](https://stackoverflow.com/questions/tagged/redux)**标签来提问。

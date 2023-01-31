@@ -2,7 +2,7 @@
   "docs": [
     {
       "type": "category",
-      "label": "入门",
+      "label": "快速入门",
       "collapsed": false,
       "items": ["introduction/getting-started"]
     },
