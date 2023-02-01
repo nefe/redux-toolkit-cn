@@ -10,9 +10,9 @@ const features = [
   {
     content: (
       <p>
-        Includes utilities to simplify common use cases like{' '}
-        <strong>store setup, creating reducers, immutable update logic</strong>,
-        and more.
+        包括简化常见使用情况的应用程序，例如
+        <strong>store设置，创建reducers，不可变更新逻辑</strong>，
+        等等
       </p>
     ),
     image: (
@@ -24,14 +24,13 @@ const features = [
       </svg>
     ),
     imageAlign: 'top',
-    title: 'Simple',
+    title: '简单',
   },
   {
     content: (
       <p>
-        Provides <strong>good defaults for store setup out of the box</strong>,
-        and includes{' '}
-        <strong>the most commonly used Redux addons built-in</strong>.
+        提供<strong>良好的store默认设置，能够开箱即用</strong>
+        ，并且还内置了<strong>最常用的Redux插件</strong>。
       </p>
     ),
     image: (
@@ -41,14 +40,14 @@ const features = [
       </svg>
     ),
     imageAlign: 'top',
-    title: 'Opinionated',
+    title: '智能',
   },
   {
     content: (
       <p>
-        Takes inspiration from libraries like Immer and Autodux to let you{' '}
-        <strong>write "mutative" immutable update logic</strong>, and even{' '}
-        <strong>create entire "slices" of state automatically</strong>.
+        从Immer和Autodux等库中获得灵感，让您能够编写
+        <strong>“可变”的不可变更新逻辑</strong>，甚至
+        <strong>自动创建state的所有slice</strong>。
       </p>
     ),
     image: (
@@ -67,13 +66,13 @@ const features = [
       </svg>
     ),
     imageAlign: 'top',
-    title: 'Powerful',
+    title: '强大',
   },
   {
     content: (
       <p>
-        Lets you focus on the core logic your app needs, so you can{' '}
-        <strong>do more work with less code</strong>.
+        让你专注于你的应用程序需要的核心逻辑，所以你可以
+        <strong>用更少的代码做更多的事</strong>!
       </p>
     ),
     image: (
@@ -82,13 +81,13 @@ const features = [
       </svg>
     ),
     imageAlign: 'top',
-    title: 'Effective',
+    title: '高效',
   },
 ]
 
 const otherLibraries = [
   {
-    content: 'A predictable state container for JavaScript applications',
+    content: '一个可预测的JavaScript应用程序的状态容器',
     title: 'Redux',
     link: 'https://redux.js.org',
     image: (
@@ -104,7 +103,7 @@ const otherLibraries = [
     ),
   },
   {
-    content: 'Official React bindings for Redux',
+    content: '官方的 React 对 Redux 绑定库',
     title: 'React-Redux',
     link: 'https://react-redux.js.org',
     image: (
@@ -149,7 +148,7 @@ function Home() {
               )}
               to={useBaseUrl('introduction/getting-started')}
             >
-              Get Started
+              入门RTK
             </Link>
           </div>
         </div>
@@ -182,7 +181,7 @@ function Home() {
               <div className="row">
                 <div className="col">
                   <h2 className={`text--center ${styles.secondTitle}`}>
-                    Other Libraries from the Redux Team
+                    Redux团队的其他库
                   </h2>
                 </div>
               </div>

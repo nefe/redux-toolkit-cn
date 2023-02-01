@@ -2,6 +2,10 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query'
 import { configureStore } from '@reduxjs/toolkit'
 import { waitMs } from './helpers'
 import type { Middleware, Reducer } from 'redux'
+import {
+  THIRTY_TWO_BIT_MAX_INT,
+  THIRTY_TWO_BIT_MAX_TIMER_SECONDS,
+} from '../core/buildMiddleware/cacheCollection'
 
 beforeAll(() => {
   jest.useFakeTimers('legacy')
@@ -52,6 +56,35 @@ test(`query: await cleanup, keepUnusedDataFor set`, async () => {
   expect(onCleanup).toHaveBeenCalled()
 })
 
+test(`query: handles large keepUnuseDataFor values over 32-bit ms`, async () => {
+  const { store, api } = storeForApi(
+    createApi({
+      baseQuery: fetchBaseQuery({ baseUrl: 'https://example.com' }),
+      endpoints: (build) => ({
+        query: build.query<unknown, string>({
+          query: () => '/success',
+        }),
+      }),
+      keepUnusedDataFor: THIRTY_TWO_BIT_MAX_TIMER_SECONDS - 10,
+    })
+  )
+
+  store.dispatch(api.endpoints.query.initiate('arg')).unsubscribe()
+
+  // Shouldn't have been called right away
+  jest.advanceTimersByTime(1000), await waitMs()
+  expect(onCleanup).not.toHaveBeenCalled()
+
+  // Shouldn't have been called any time in the next few minutes
+  jest.advanceTimersByTime(1_000_000), await waitMs()
+  expect(onCleanup).not.toHaveBeenCalled()
+
+  // _Should_ be called _wayyyy_ in the future (like 24.8 days from now)
+  jest.advanceTimersByTime(THIRTY_TWO_BIT_MAX_TIMER_SECONDS * 1000),
+    await waitMs()
+  expect(onCleanup).toHaveBeenCalled()
+})
+
 describe(`query: await cleanup, keepUnusedDataFor set`, () => {
   const { store, api } = storeForApi(
     createApi({
@@ -67,6 +100,10 @@ describe(`query: await cleanup, keepUnusedDataFor set`, () => {
         query3: build.query<unknown, string>({
           query: () => '/success',
           keepUnusedDataFor: 0,
+        }),
+        query4: build.query<unknown, string>({
+          query: () => '/success',
+          keepUnusedDataFor: Infinity,
         }),
       }),
       keepUnusedDataFor: 29,
@@ -93,8 +130,17 @@ describe(`query: await cleanup, keepUnusedDataFor set`, () => {
     expect(onCleanup).not.toHaveBeenCalled()
     store.dispatch(api.endpoints.query3.initiate('arg')).unsubscribe()
     expect(onCleanup).not.toHaveBeenCalled()
-    jest.advanceTimersByTime(1), await waitMs()
+    jest.advanceTimersByTime(1)
+    await waitMs()
     expect(onCleanup).toHaveBeenCalled()
+  })
+
+  test('endpoint keepUnusedDataFor: Infinity', async () => {
+    expect(onCleanup).not.toHaveBeenCalled()
+    store.dispatch(api.endpoints.query4.initiate('arg')).unsubscribe()
+    expect(onCleanup).not.toHaveBeenCalled()
+    jest.advanceTimersByTime(THIRTY_TWO_BIT_MAX_INT)
+    expect(onCleanup).not.toHaveBeenCalled()
   })
 })
 

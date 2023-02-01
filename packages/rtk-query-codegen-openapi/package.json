@@ -1,6 +1,6 @@
 {
   "name": "@rtk-query/codegen-openapi",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "author": "Lenz Weber",
@@ -47,7 +47,7 @@
     "esbuild-runner": "^2.2.1",
     "husky": "^4.3.6",
     "jest": "^27",
-    "msw": "^0.41.1",
+    "msw": "^0.40.2",
     "openapi-types": "^9.1.0",
     "pretty-quick": "^3.1.0",
     "ts-jest": "^27",
@@ -56,8 +56,8 @@
   },
   "dependencies": {
     "@apidevtools/swagger-parser": "^10.0.2",
+    "@rtk-query/oazapfts-patched": "^3.6.0-2",
     "commander": "^6.2.0",
-    "oazapfts": "^3.5.0",
     "prettier": "^2.2.1",
     "semver": "^7.3.5",
     "swagger2openapi": "^7.0.4",

@@ -16,7 +16,7 @@ export type {
   ParametricSelector,
 } from 'reselect'
 export { createDraftSafeSelector } from './createDraftSafeSelector'
-export type { ThunkAction, ThunkDispatch } from 'redux-thunk'
+export type { ThunkAction, ThunkDispatch, ThunkMiddleware } from 'redux-thunk'
 
 // We deliberately enable Immer's ES5 support, on the grounds that
 // we assume RTK will be used with React Native and other Proxy-less
@@ -34,6 +34,7 @@ export type {
   ConfigureStoreOptions,
   EnhancedStore,
 } from './configureStore'
+export type { DevToolsEnhancerOptions } from './devtoolsExtension'
 export {
   // js
   createAction,
@@ -174,6 +175,7 @@ export type {
   TaskResolved,
   TaskResult,
 } from './listenerMiddleware/index'
+export type { AnyListenerPredicate } from './listenerMiddleware/types'
 
 export {
   createListenerMiddleware,
@@ -182,3 +184,10 @@ export {
   clearAllListeners,
   TaskAbortError,
 } from './listenerMiddleware/index'
+
+export {
+  SHOULD_AUTOBATCH,
+  prepareAutoBatched,
+  autoBatchEnhancer,
+} from './autoBatchEnhancer'
+export type { AutoBatchOptions } from './autoBatchEnhancer'
