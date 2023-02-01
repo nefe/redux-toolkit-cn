@@ -15,7 +15,7 @@ import TabItem from '@theme/TabItem';
 # 快速入门Redux Toolkit
 
 ## 目的
-**Redux Toolkit**包旨在成为编写Redux逻辑的标准方式。它最初是为了帮助解决[Redux](https://cn.redux.js.org)的三个常见的问题。
+**Redux Toolkit**旨在成为编写Redux逻辑的标准方式。它最初是为了帮助解决[Redux](https://cn.redux.js.org)的三个常见的问题。
 
 - "配置Redux store实在是太复杂啦"
 - "我得添加很多其他的包才能开始用Redux做些有用的事情"
@@ -105,7 +105,7 @@ import { createApi } from '@reduxjs/toolkit/query/react'
 RTK Query包含这些API:
 
 - [`createApi()`](../rtk-query/api/createApi.mdx): RTK Query的核心功能。它允许你定义一组端点，描述如何从一系列的端点中获取数据，包括配置如何获取和转换这些数据。在大多数情况下，你应该在每个应用中使用一次，以 "每个基本URL一个API slice"作为经验法则。
-- [`fetchBaseQuery()`](../rtk-query/api/fetchBaseQuery.mdx): 一个围绕[`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)的小型封装器，旨在简化请求。旨在作为推荐的`baseQuery`，供大多数用户在`createApi`中使用。
+- [`fetchBaseQuery()`](../rtk-query/api/fetchBaseQuery.mdx): 一个[`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)的小型封装器，旨在简化请求。旨在作为推荐的`baseQuery`，供大多数用户在`createApi`中使用。
 - [`<ApiProvider />`](../rtk-query/api/ApiProvider.mdx): **如果你还没有任何Redux store**，你可以将它作为`Provider`。
 - [`setupListeners()`](../rtk-query/api/setupListeners.mdx): 一个用于启用 `refetchOnMount`和`refetchOnReconnect`行为的工具。
 
